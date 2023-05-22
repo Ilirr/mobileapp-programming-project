@@ -19,6 +19,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
     {
         MSI_List = list;
     }
+
+    public void set(ArrayList<MSI> msiList) {
+    this.MSI_List = msiList;
+    notifyDataSetChanged();
+}
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -36,6 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
 
     @Override
     public int getItemCount() {
-        return 0;
+        return MSI_List.size();
+
     }
 }
