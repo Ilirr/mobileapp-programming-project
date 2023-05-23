@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
     Gson gson;
 
-    private String Json_File = "json-api.json";
-
 
 
 
