@@ -5,13 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,15 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Locale;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements JsonTask.JsonTaskListener{
     private RecyclerView recyclerView;
@@ -120,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         else
         {
             for (MSI msiObject : MSI_List) {
-                if (msiObject.Name.toLowerCase().contains(filterText.toLowerCase()))
+                if (msiObject.name.toLowerCase().contains(filterText.toLowerCase()))
                 {
                     filtered_MSI_List.add(msiObject);
                 }
@@ -147,29 +138,15 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         @Override
         public void onPostExecute(String json)
         {
-            if (json != null) {
-                try {
-                    JSONArray jsonArray = new JSONArray(json);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (json != null)
+            {
+                List<MSI> msiList = gson.fromJson(json, new TypeToken<List<MSI>>(){}.getType());
 
-                        String ID = jsonObject.getString("ID");
-                        String name = jsonObject.getString("name");
-                        String company = jsonObject.getString("company");
-                        String location = jsonObject.getString("location");
-                        String category = jsonObject.getString("category");
-                        int cost = jsonObject.getInt("cost");
-                        String score = jsonObject.getString("auxdata");
+                MSI_List.addAll(msiList);
+                adapter.set(MSI_List);
+                filterData(savedFilter);
 
-                        MSI msi = new MSI(ID, name, company, location, category, score,cost);
-                        MSI_List.add(msi);
-                    }
-                    adapter.set(MSI_List);
-                    filterData(savedFilter);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
 
 

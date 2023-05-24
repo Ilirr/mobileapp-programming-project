@@ -1,26 +1,24 @@
 package com.example.project;
 
-import android.widget.ImageView;
-
 public class MSI {
 
     public String ID;
-    public String Name;
-    public String Company;
-    public String Location;
-    public String Category;
-    public String Score; //auxdata
-    public int Cost;
+    public String name;
+    public String company;
+    public String location;
+    public String category;
+    public String auxdata; //auxdata
+    public int cost;
 
-    public MSI (String ID, String Name, String Company, String Location, String Category, String Score, int Cost)
+    public MSI (String ID, String Name, String Company, String Location, String Category, String auxdata, int Cost)
     {
         this.ID = ID;
-        this.Name = Name;
-        this.Company = Company;
-        this.Location = Location;
-        this.Category = Category;
-        this.Score = Score;
-        this.Cost = Cost;
+        this.name = Name;
+        this.company = Company;
+        this.location = Location;
+        this.category = Category;
+        this.auxdata = auxdata;
+        this.cost = Cost;
 
     }
 

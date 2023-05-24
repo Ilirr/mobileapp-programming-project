@@ -1,6 +1,5 @@
 package com.example.project;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,11 +32,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements Comparable<
     public void set(MSI msi)
     {
         ID.setText("Tournament name: " + msi.ID);
-        name.setText("Teams: " + msi.Name);
-        company.setText("Company: " + msi.Company);
-        category.setText("Category: " + msi.Category);
-        cost.setText("Prize Pool: " + String.valueOf(msi.Cost) + "USD");
-        score.setText("Final score: " + msi.Score);
+        name.setText("Teams: " + msi.name);
+        company.setText("Company: " + msi.company);
+        category.setText("Category: " + msi.category);
+        cost.setText("Prize Pool: " + String.valueOf(msi.cost) + "USD");
+        score.setText("Final score: " + msi.auxdata);
         if(msi.ID.equals("MSI 2015"))
         {
             myImageView.setImageResource(R.drawable.screenshot1);

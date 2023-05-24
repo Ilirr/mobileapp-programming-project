@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
 {
@@ -63,7 +60,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
     {
         Intent intent = new Intent(context, DetailedViewActivity.class);
 
-        intent.putExtra("Location", selectedItem.Location);
+        intent.putExtra("Location", selectedItem.location);
 
         context.startActivity(intent);
     }
