@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder
+public class MyViewHolder extends RecyclerView.ViewHolder implements Comparable<MyViewHolder>
 {
     public TextView ID;
     public TextView name;
@@ -31,6 +31,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder
         myImageView = itemView.findViewById(R.id.imageView2);
     }
 
+
     public void set(MSI msi)
     {
         ID.setText("Tournament name: " + msi.ID);
@@ -40,7 +41,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder
         category.setText("Category: " + msi.Category);
         cost.setText("Prize Pool: " + String.valueOf(msi.Cost) + "USD");
         score.setText("Final score: " + msi.Score);
-        Log.println(Log.ASSERT,msi.ID,msi.ID);
         if(msi.ID.equals("MSI 2015"))
         {
             myImageView.setImageResource(R.drawable.screenshot1);
@@ -84,4 +84,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder
         }
     }
 
+    @Override
+    public int compareTo(MyViewHolder myViewHolder) {
+        return name.getText().toString().compareTo(myViewHolder.name.getText().toString());
+    }
 }

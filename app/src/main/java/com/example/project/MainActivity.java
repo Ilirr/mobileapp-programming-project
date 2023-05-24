@@ -1,6 +1,15 @@
 package com.example.project;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,21 +22,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements JsonTask.JsonTaskListener{
     private RecyclerView recyclerView;
     private MyAdapter adapter;
     private ArrayList<MSI> MSI_List;
+    private ArrayList<MSI> filtered_MSI_List;
+    private EditText filterText;
+    private SharedPreferences sharedPreferences;
 
+    private static final String JSON_FILE = "json/json-api.json";
+    private static final String FILTER_PREFS = "filter_pref";
+    private static final String FILTER_KEY = "filter_key";
     Gson gson;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +50,67 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         gson = new Gson();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        filterText = findViewById(R.id.filterText);
+
 
         MSI_List = new ArrayList<>();
-        adapter = new MyAdapter(MSI_List);
+        filtered_MSI_List = new ArrayList<>();
+
+        adapter = new MyAdapter(filtered_MSI_List);
         recyclerView.setAdapter(adapter);
+
+        sharedPreferences = getSharedPreferences(FILTER_PREFS, MODE_PRIVATE);
+        String savedFilter = sharedPreferences.getString(FILTER_KEY, "");
+        filterText.setText(savedFilter);
 
         getJsonFromURL();
 
+        filterData(savedFilter);
+        filterText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s != null)
+                {
+                    String userInput = s.toString().trim();
+                    filterData(userInput);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+        });
+
+
     }
+
+    public void filterData(String filterText)
+    {
+        filtered_MSI_List.clear();
+        if (filterText.isEmpty()) {
+            filtered_MSI_List.addAll(MSI_List);
+        } else {
+            for (MSI msiObject : MSI_List) {
+                if (msiObject.Name.toLowerCase().contains(filterText.toLowerCase())) {
+                    filtered_MSI_List.add(msiObject);
+                }
+            }
+        }
+        adapter.set(filtered_MSI_List);
+        adapter.notifyDataSetChanged();
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(FILTER_KEY, filterText);
+        editor.apply();
+
+    }
+
 
     private void getJsonFromURL()
     {
@@ -71,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
                         int cost = jsonObject.getInt("cost");
                         String score = jsonObject.getString("auxdata");
 
-
                         MSI msi = new MSI(ID, name, company, location, category, score,cost);
                         MSI_List.add(msi);
                     }
@@ -84,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         }
     };
+
 
     @Override
     public void onPostExecute(String json) {

@@ -21,4 +21,5 @@ public class MSI {
         this.Cost = Cost;
 
     }
+
 }
