@@ -11,7 +11,6 @@ public class MSI {
     public String Category;
     public String Score; //auxdata
     public int Cost;
-    public ImageView imageView;
 
     public MSI (String ID, String Name, String Company, String Location, String Category, String Score, int Cost)
     {

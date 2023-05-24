@@ -113,11 +113,15 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     public void filterData(String filterText)
     {
         filtered_MSI_List.clear();
-        if (filterText.isEmpty()) {
+        if (filterText.isEmpty())
+        {
             filtered_MSI_List.addAll(MSI_List);
-        } else {
+        }
+        else
+        {
             for (MSI msiObject : MSI_List) {
-                if (msiObject.Name.toLowerCase().contains(filterText.toLowerCase())) {
+                if (msiObject.Name.toLowerCase().contains(filterText.toLowerCase()))
+                {
                     filtered_MSI_List.add(msiObject);
                 }
             }
