@@ -1,5 +1,6 @@
 package com.example.project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -44,17 +45,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         MSI msi = MSI_List.get(position);
         holder.set(msi);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Retrieve the selected element's data
-                MSI selectedItem = MSI_List.get(position);
+                MSI msi = MSI_List.get(position);
 
-                createDetailedViewActivity(selectedItem);
+                createDetailedViewActivity(msi);
             }
         });
 

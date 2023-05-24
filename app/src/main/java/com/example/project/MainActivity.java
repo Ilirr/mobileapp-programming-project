@@ -1,5 +1,6 @@
 package com.example.project;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private static final String FILTER_KEY = "filter_key";
     Gson gson;
 
+    Button aboutButton;
+
     String savedFilter;
 
     @Override
@@ -57,7 +61,12 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         MSI_List = new ArrayList<>();
         filtered_MSI_List = new ArrayList<>();
+
+        aboutButton = findViewById(R.id.button);
+
         getJsonFromURL();
+
+
 
         adapter = new MyAdapter(MainActivity.this,filtered_MSI_List);
         recyclerView.setAdapter(adapter);
@@ -90,8 +99,16 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         });
 
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intent);
 
+            }
+        });
     }
+
 
     public void filterData(String filterText)
     {

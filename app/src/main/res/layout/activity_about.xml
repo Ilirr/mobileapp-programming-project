@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="255dp"
+        android:layout_height="390dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="93dp"
+        android:text="This app is targeted to those interested in the League of Legends tournament scene. The app lists details of all Mid-Season Invitationals  tournaments from 2015-2022."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

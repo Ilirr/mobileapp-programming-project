@@ -10,7 +10,9 @@
         android:id="@+id/detailedTextView"
         android:layout_width="116dp"
         android:layout_height="45dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="201dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="129dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
