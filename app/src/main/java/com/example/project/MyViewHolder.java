@@ -11,7 +11,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements Comparable<
 {
     public TextView ID;
     public TextView name;
-    public TextView location;
     public TextView category;
     public TextView company;
     public TextView cost;
@@ -23,7 +22,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements Comparable<
         super(itemView);
         ID = itemView.findViewById(R.id.ID);
         name = itemView.findViewById(R.id.name);
-        location = itemView.findViewById(R.id.location);
         category = itemView.findViewById(R.id.category);
         company = itemView.findViewById(R.id.company);
         cost = itemView.findViewById(R.id.cost);
@@ -37,7 +35,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements Comparable<
         ID.setText("Tournament name: " + msi.ID);
         name.setText("Teams: " + msi.Name);
         company.setText("Company: " + msi.Company);
-        location.setText("Location: " + msi.Location);
         category.setText("Category: " + msi.Category);
         cost.setText("Prize Pool: " + String.valueOf(msi.Cost) + "USD");
         score.setText("Final score: " + msi.Score);
@@ -77,7 +74,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements Comparable<
 
 
         }
-        if(msi.ID.equals("MSI 2021")) {
+        if(msi.ID.equals("MSI 2022")) {
             myImageView.setImageResource(R.drawable.screenshot7);
 
 

@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private static final String FILTER_KEY = "filter_key";
     Gson gson;
 
+    String savedFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,17 +57,18 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         MSI_List = new ArrayList<>();
         filtered_MSI_List = new ArrayList<>();
-
-        adapter = new MyAdapter(filtered_MSI_List);
-        recyclerView.setAdapter(adapter);
-
-        sharedPreferences = getSharedPreferences(FILTER_PREFS, MODE_PRIVATE);
-        String savedFilter = sharedPreferences.getString(FILTER_KEY, "");
-        filterText.setText(savedFilter);
-
         getJsonFromURL();
 
-        filterData(savedFilter);
+        adapter = new MyAdapter(MainActivity.this,filtered_MSI_List);
+        recyclerView.setAdapter(adapter);
+
+
+
+        sharedPreferences = getSharedPreferences(FILTER_PREFS, MODE_PRIVATE);
+        savedFilter = sharedPreferences.getString(FILTER_KEY, "");
+        filterText.setText(savedFilter);
+
+
         filterText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -102,8 +105,10 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
                 }
             }
         }
+
         adapter.set(filtered_MSI_List);
         adapter.notifyDataSetChanged();
+
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(FILTER_KEY, filterText);
@@ -139,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
                         MSI_List.add(msi);
                     }
                     adapter.set(MSI_List);
+                    filterData(savedFilter);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -146,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
 
         }
+
+
     };
 
 

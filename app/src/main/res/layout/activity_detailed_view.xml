@@ -7,7 +7,7 @@
     tools:context=".DetailedViewActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/detailedTextView"
         android:layout_width="116dp"
         android:layout_height="45dp"
         android:text="TextView"

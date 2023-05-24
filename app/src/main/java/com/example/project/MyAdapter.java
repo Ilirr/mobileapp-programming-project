@@ -1,11 +1,15 @@
 package com.example.project;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +21,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
 
     public ArrayList<MSI> MSI_List;
 
-    public MyAdapter(ArrayList<MSI> list)
+    public Context context;
+
+    public MyAdapter(Context context, ArrayList<MSI> list)
     {
+        this.context = context;
         MSI_List = list;
     }
 
@@ -41,6 +48,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
         MSI msi = MSI_List.get(position);
         holder.set(msi);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve the selected element's data
+                MSI selectedItem = MSI_List.get(position);
+
+                createDetailedViewActivity(selectedItem);
+            }
+        });
+
+    }
+    private void createDetailedViewActivity(MSI selectedItem)
+    {
+        Intent intent = new Intent(context, DetailedViewActivity.class);
+
+        intent.putExtra("Location", selectedItem.Location);
+
+        context.startActivity(intent);
     }
 
     @Override
