@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         aboutButton = findViewById(R.id.button);
 
-        getJsonFromURL();
+        new JsonTask(jsonTaskListener).execute("https://mobprog.webug.se/json-api?login=a22iliru");
 
 
 
@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         });
     }
 
-
     public void filterData(String filterText)
     {
         filtered_MSI_List.clear();
@@ -117,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
                 }
             }
         }
-
         adapter.set(filtered_MSI_List);
         adapter.notifyDataSetChanged();
 
@@ -126,12 +124,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         editor.putString(FILTER_KEY, filterText);
         editor.apply();
 
-    }
-
-
-    private void getJsonFromURL()
-    {
-        new JsonTask(jsonTaskListener).execute("https://mobprog.webug.se/json-api?login=a22iliru");
     }
     private JsonTask.JsonTaskListener jsonTaskListener = new JsonTask.JsonTaskListener()
     {
